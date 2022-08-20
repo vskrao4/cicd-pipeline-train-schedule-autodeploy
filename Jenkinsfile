@@ -4,7 +4,7 @@ pipeline {
         //be sure to replace "bhavukm" with your own Docker Hub username
         DOCKER_IMAGE_NAME = "bhavukm/train-schedule"
         // docker hub login
-        docker_hub_login = kameshcmc/dckr_pat__C0IIss3yhAJD_XQEka_BM7Pi40
+        docker_hub_login = kameshcmc+dckr_pat__C0IIss3yhAJD_XQEka_BM7Pi40
     }
     stages {
         stage('Build') {
