@@ -53,7 +53,7 @@ pipeline {
                 )
             }
         }*/
-        stage('KubernetesDeployment) {
+        stage('KubernetesDeployment') {
 			podTemplate {
 				node(POD_LABLE) {
 					stage('DeployToProduction') {
