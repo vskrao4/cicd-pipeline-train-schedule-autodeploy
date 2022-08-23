@@ -52,7 +52,7 @@ pipeline {
                     enableConfigSubstitution: true
                 )
             }
-        }*/
+        }
         podTemplate(containers: [
            containerTemplate(
               name: 'jnlp', 
@@ -83,6 +83,6 @@ pipeline {
 					}
 				}
 			  }
-		}
+		}*/
     }
 }
