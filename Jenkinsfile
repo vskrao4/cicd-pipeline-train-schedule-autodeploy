@@ -52,7 +52,7 @@ pipeline {
                     enableConfigSubstitution: true
                 )
             }
-        }*/
+        }
         stage('DeployToProduction') {
             when {
                 branch 'master'
@@ -74,6 +74,6 @@ pipeline {
                     enableConfigSubstitution: true
                 )
             }
-        }
+        }*/
     }
 }
