@@ -25,7 +25,7 @@ pipeline {
                 }
             }
         }
-        /*stage('Push Docker Image') {
+        stage('Push Docker Image') {
             //when {
             //    branch 'master'
             //}
@@ -38,7 +38,7 @@ pipeline {
                 }
             }
         }
-        stage('CanaryDeploy') {
+        /*stage('CanaryDeploy') {
             when {
                 branch 'master'
             }
@@ -52,28 +52,34 @@ pipeline {
                     enableConfigSubstitution: true
                 )
             }
-        }
-        stage('DeployToProduction') {
-            when {
-                branch 'master'
-            }
-            environment { 
-                CANARY_REPLICAS = 0
-            }
-            steps {
-                input 'Deploy to Production?'
-                milestone(1)
-                kubernetesDeploy(
-                    kubeconfigId: 'kubeconfig',
-                    configs: 'train-schedule-kube-canary.yml',
-                    enableConfigSubstitution: true
-                )
-                kubernetesDeploy(
-                    kubeconfigId: 'kubeconfig',
-                    configs: 'train-schedule-kube.yml',
-                    enableConfigSubstitution: true
-                )
-            }
         }*/
+        stage('KubernetesDeployment) {
+			podTemplate {
+				node(POD_LABLE) {
+					stage('DeployToProduction') {
+						//when {
+						//    branch 'master'
+						//}
+						environment { 
+							CANARY_REPLICAS = 0
+						}
+						steps {
+							input 'Deploy to Production?'
+							milestone(1)
+							kubernetesDeploy(
+								kubeconfigId: 'kubeconfig',
+								configs: 'train-schedule-kube-canary.yml',
+								enableConfigSubstitution: true
+							)
+							kubernetesDeploy(
+								kubeconfigId: 'kubeconfig',
+								configs: 'train-schedule-kube.yml',
+								enableConfigSubstitution: true
+							)
+						}
+					}
+				}
+			}
+		}
     }
 }
