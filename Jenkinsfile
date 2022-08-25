@@ -76,7 +76,6 @@ pipeline {
 							    echo "Hello from Kubernetes cluster Jenkins Agent"
 //                                /bin/sh -c "kubectl apply -f train-schedule-kube-canary.yml"
 //                                /bin/sh -c "kubectl apply -f train-schedule-kube.yml"
-                                )
 					        }
 					    }
 					}
