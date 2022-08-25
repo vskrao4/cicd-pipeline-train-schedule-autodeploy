@@ -5,7 +5,7 @@ pipeline {
         DOCKER_IMAGE_NAME = "kameshcmc/train-schedule"
 	PROJECT_ID = 'kamesh-kubernetes'
         CLUSTER_NAME = 'kamskube-1'
-        LOCATION = 'us-central-1c'
+        LOCATION = 'us-central1-c'
         CREDENTIALS_ID = 'kamesh-kubernetes'
     }
     stages {
