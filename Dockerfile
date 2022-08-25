@@ -5,5 +5,5 @@ RUN npm install
 # Install kubectl from Docker Hub as required for Kubernetes deployment
 COPY --from=bitnami/kubectl . /usr/local/bin/kubectl
 COPY . .
-EXPOSE 8080
+EXPOSE 32000
 CMD [ "npm", "start" ]
