@@ -3,6 +3,10 @@ pipeline {
     environment {
         //be sure to replace "bhavukm" with your own Docker Hub username
         DOCKER_IMAGE_NAME = "kameshcmc/train-schedule"
+	PROJECT_ID = 'kamesh-kubernetes'
+        CLUSTER_NAME = 'kamskube-1'
+        LOCATION = 'us-central-1c'
+        CREDENTIALS_ID = 'kamesh-kubernetes'
     }
     stages {
         stage('Build') {
@@ -57,29 +61,15 @@ pipeline {
             //when {
             //    branch 'master'
             //}
-            environment { 
-                CANARY_REPLICAS = 0
-            }
             steps {
-                input 'Deploy to Production?'
-                milestone(1)
-                podTemplate(containers: [
-                   containerTemplate(
-                   name: 'jnlp', 
-                   image: 'jenkins/inbound-agent:latest'
-                   )
-                ]) {
-
-                   node(POD_LABEL) {
-                        stage('ProductionDeployment') {
-					        container('jnlp') {
-							    echo "Hello from Kubernetes cluster Jenkins Agent"
-//                                /bin/sh -c "kubectl apply -f train-schedule-kube-canary.yml"
-//                                /bin/sh -c "kubectl apply -f train-schedule-kube.yml"
-					        }
-					    }
-					}
-				}
+                step([
+                $class: 'KubernetesEngineBuilder',
+                projectId: env.PROJECT_ID,
+                clusterName: env.CLUSTER_NAME,
+                location: env.LOCATION,
+                manifestPattern: 'train-schedule-kube.yml',
+                credentialsId: env.CREDENTIALS_ID,
+                verifyDeployments: true])
             }
         }
     }
